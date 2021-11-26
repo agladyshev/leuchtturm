@@ -1,0 +1,29 @@
+html {
+    box-sizing: border-box;
+}
+
+*,
+*:before,
+*:after {
+    box-sizing: inherit;
+}
+
+body {
+    background-color: cornsilk;
+}
+
+main {}
+
+article {
+    width: fit-content;
+    display: grid;
+    grid-template-columns: repeat(26, 1fr);
+    grid-template-rows: repeat(38, 1fr);
+}
+
+div.cell {
+    width: 1em;
+    height: 1em;
+    background-image: url(border.svg);
+    background-size: cover;
+}
