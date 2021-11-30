@@ -4,7 +4,7 @@
 }
 
 html {
-    /* box-sizing: border-box; */
+    box-sizing: border-box;
 }
 
 *,
@@ -16,10 +16,6 @@ html {
 body {
     margin: 0;
     padding: 0;
-    width: 100vw;
-    height: 100vh;
-    /* width: 100%; */
-    /* height: 100%; */
     display: grid;
     grid-template-rows: auto 1fr auto;
     grid-template-columns: 1fr;
@@ -28,36 +24,41 @@ body {
 
 body header {
     text-align: center;
+    height: 1.5em;
 }
 
 body footer {
     text-align: right;
+    height: 1.5em;
 }
 
-main {
-    /* width: 100%; */
-    /* height: 100%; */
+main.notebook {
+    padding: 0.5em 0;
     display: flex;
     justify-content: center;
+    background: url(background_wood.svg);
+    height: calc(100vh - 3em);
 }
 
 div.page {
-    /* width: 30em; */
-    /* height: 42em; */
-    /* display: flex; */
-    /* flex-direction: column; */
-    /* justify-content: center; */
-    height: fit-content;
     background-color: ivory;
-    padding: 0.5em;
+    padding: calc((100vh - 4em) / 41);
+    padding-bottom: 0;
+    border-radius: 1em 0 0 1em;
+    width: fit-content;
 }
 
 article.grid {
     position: relative;
-    overflow: hidden;
-    width: 26em;
-    height: 38em;
-    padding: 0.5em;
+    /* overflow: hidden; */
+    /* width: 26em; */
+    /* height: 38em; */
+    /* height: calc((100vh - 7em)); */
+    /* width: calc((100vh - 7em) * 13 / 19); */
+
+    /* width: 100%; */
+    /* height: calc(100% - 1.5em); */
+    /* padding: 0.5em; */
     display: grid;
     grid-template-columns: repeat(26, 1fr);
     grid-template-rows: repeat(38, 1fr);
@@ -65,23 +66,38 @@ article.grid {
 
 div.cover {
     position: absolute;
-    left: -0.5em;
-    top: -0.5em;
-    width: 28em;
-    height: 40em;
+    overflow: hidden;
+    height: calc((100vh - 4em) * 39 / 41);
+    width: calc((100vh - 4em) * 27 / 41);
+    top: calc((100vh - 4em) / 41 / 2 * (-1));
+    left: calc((100vh - 4em) / 41 / 2 * (-1));
+}
+
+div.cover .image {
+    position: absolute;
+    height: calc((100vh - 4em) * 40 / 41);
+    width: calc((100vh - 4em) * 28 / 41);
+    top: calc((100vh - 4em) / 41 / 2 * (-1));
+    left: calc((100vh - 4em) / 41 / 2 * (-1));
     background: url(border.svg);
+    background-size: calc((100vh - 4em) / 41),
+        auto;
     opacity: 0.3;
 }
 
 div.cell {
-    width: 1em;
-    height: 1em;
+    height: calc((100vh - 4em) / 41);
+    width: calc((100vh - 4em) / 41);
+    /* background-color: antiquewhite; */
+    /* background: url(border_copy.svg); */
 }
 
-main footer {
+.page footer {
     /* height: 1em; */
     text-align: left;
-    font-size: 0.4em;
+    height: calc((100vh - 4em) * 2 / 41);
+    font-size: 0.8em;
     color: #b2b3ab;
-    padding: 1em 1em 0em 1em;
+    padding-top: 0.5em;
+    /* padding: 0.5em 0em 0em 0.5em; */
 }
