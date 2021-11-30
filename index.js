@@ -4,7 +4,7 @@ for (let i = 0; i < 26 * 38; i++) {
 }
 //customElements.define('cell', Cell, { extends: 'div' });
 
-var page = document.querySelector("article.page");
+var page = document.querySelector("article.grid");
 
 pageArr.forEach(function createCell(cell, index) {
     let cellElement = document.createElement("div");
