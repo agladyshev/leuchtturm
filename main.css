@@ -1,3 +1,8 @@
+@font-face {
+    font-family: grotesk;
+    src: url(anderson_grotesk_light.otf);
+}
+
 html {
     /* box-sizing: border-box; */
 }
@@ -18,6 +23,7 @@ body {
     display: grid;
     grid-template-rows: auto 1fr auto;
     grid-template-columns: 1fr;
+    font-family: grotesk;
 }
 
 body header {
@@ -36,17 +42,19 @@ main {
 }
 
 div.page {
-    width: 30em;
-    height: 42em;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+    /* width: 30em; */
+    /* height: 42em; */
+    /* display: flex; */
+    /* flex-direction: column; */
+    /* justify-content: center; */
+    height: fit-content;
+    background-color: ivory;
+    padding: 0.5em;
 }
 
 article.grid {
     position: relative;
     overflow: hidden;
-    background-color: cornsilk;
     width: 26em;
     height: 38em;
     padding: 0.5em;
@@ -62,14 +70,18 @@ div.cover {
     width: 28em;
     height: 40em;
     background: url(border.svg);
+    opacity: 0.3;
 }
 
 div.cell {
     width: 1em;
     height: 1em;
-
 }
 
 main footer {
+    /* height: 1em; */
     text-align: left;
+    font-size: 0.4em;
+    color: #b2b3ab;
+    padding: 1em 1em 0em 1em;
 }
