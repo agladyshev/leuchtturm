@@ -22,14 +22,21 @@ body {
     font-family: grotesk;
 }
 
-body header {
+body>header {
     text-align: center;
     height: 1.5em;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
-body footer {
+body>footer {
     text-align: right;
     height: 1.5em;
+    padding: 0 0.5em;
+    display: flex;
+    justify-content: right;
+    align-items: center;
 }
 
 main.notebook {
@@ -50,15 +57,6 @@ div.page {
 
 article.grid {
     position: relative;
-    /* overflow: hidden; */
-    /* width: 26em; */
-    /* height: 38em; */
-    /* height: calc((100vh - 7em)); */
-    /* width: calc((100vh - 7em) * 13 / 19); */
-
-    /* width: 100%; */
-    /* height: calc(100% - 1.5em); */
-    /* padding: 0.5em; */
     display: grid;
     grid-template-columns: repeat(26, 1fr);
     grid-template-rows: repeat(38, 1fr);
@@ -88,16 +86,12 @@ div.cover .image {
 div.cell {
     height: calc((100vh - 4em) / 41);
     width: calc((100vh - 4em) / 41);
-    /* background-color: antiquewhite; */
-    /* background: url(border_copy.svg); */
 }
 
 .page footer {
-    /* height: 1em; */
     text-align: left;
     height: calc((100vh - 4em) * 2 / 41);
     font-size: 0.8em;
     color: #b2b3ab;
     padding-top: 0.5em;
-    /* padding: 0.5em 0em 0em 0.5em; */
 }
