@@ -7,8 +7,7 @@ html {
     box-sizing: border-box;
 }
 
-*,
-*:before,
+* *:before,
 *:after {
     box-sizing: inherit;
 }
@@ -53,7 +52,6 @@ div.page {
     padding-bottom: 0;
     border-radius: 1em 0 0 1em;
     width: fit-content;
-    font-family: 'Klee One', cursive;
 }
 
 article.grid {
@@ -86,7 +84,7 @@ div.cover .image {
     pointer-events: none;
 }
 
-.cell {
+input.cell {
     height: calc((100vh - 4em) / 41);
     width: calc((100vh - 4em) / 41);
     text-align: center;
@@ -94,9 +92,10 @@ div.cover .image {
     border: none;
     padding: 0;
     background-color: inherit;
+    font-family: 'Klee One', cursive;
 }
 
-.cell:focus {
+input.cell:focus {
     outline: none;
     caret-color: transparent;
     background-color: black;
