@@ -1,15 +1,14 @@
-let pageArr = [];
-for (let i = 0; i < 26 * 38; i++) {
-    pageArr.push({
-        value: "",
-        id: i
-    });
+import * as Storage from "./storage.js"
+
+if (!localStorage.getItem("pages")) {
+    Storage.initializeStorage();
 }
-//customElements.define('cell', Cell, { extends: 'div' });
+
+var pages = JSON.parse(localStorage.getItem("pages"));
 
 var page = document.querySelector("article.grid");
 
-pageArr.forEach(function createCell(cell, index) {
+pages[0].cells.forEach(function createCell(cell, index) {
     let cellElement = document.createElement("input");
     cellElement.className = "cell";
     cellElement.innerText = cell.value;
@@ -28,8 +27,7 @@ page.addEventListener("keydown", gridNavHandler);
 
 function clickHandler(e) {
     if (e.target && e.target.className == "cell") {
-        // console.log(e.target.id);
-        // e.target.focus();
+        e.target.focus();
     }
 }
 
