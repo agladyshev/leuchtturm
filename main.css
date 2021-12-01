@@ -96,6 +96,13 @@ div.cover .image {
     background-color: inherit;
 }
 
+.cell:focus {
+    outline: none;
+    caret-color: transparent;
+    background-color: black;
+    opacity: 0.05;
+}
+
 .page footer {
     text-align: left;
     height: calc((100vh - 4em) * 2 / 41);

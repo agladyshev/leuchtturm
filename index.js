@@ -15,12 +15,11 @@ pageArr.forEach(function createCell(cell, index) {
     cellElement.innerText = cell.value;
     cellElement.maxLength = 1;
     cellElement.size = 1;
-    // cellElement.setAttribute('tabindex', '0');
+    // cellElement.setAttribute('tabindex', '-1');
     cellElement.setAttribute('id', cell.id);
     // cellElement.onchange = cellInputChange();
     page.appendChild(cellElement);
 })
-
 page.addEventListener("click", clickHandler);
 page.addEventListener("input", tabOnMaxLen);
 page.addEventListener("keydown", gridNavHandler);
