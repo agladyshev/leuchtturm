@@ -53,6 +53,7 @@ div.page {
     padding-bottom: 0;
     border-radius: 1em 0 0 1em;
     width: fit-content;
+    font-family: 'Klee One', cursive;
 }
 
 article.grid {
@@ -69,6 +70,7 @@ div.cover {
     width: calc((100vh - 4em) * 27 / 41);
     top: calc((100vh - 4em) / 41 / 2 * (-1));
     left: calc((100vh - 4em) / 41 / 2 * (-1));
+    pointer-events: none;
 }
 
 div.cover .image {
@@ -81,11 +83,17 @@ div.cover .image {
     background-size: calc((100vh - 4em) / 41),
         auto;
     opacity: 0.3;
+    pointer-events: none;
 }
 
-div.cell {
+.cell {
     height: calc((100vh - 4em) / 41);
     width: calc((100vh - 4em) / 41);
+    text-align: center;
+    font-size: 1em;
+    border: none;
+    padding: 0;
+    background-color: inherit;
 }
 
 .page footer {
