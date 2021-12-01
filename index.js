@@ -71,4 +71,10 @@ function gridNavHandler(e) {
             next.focus();
         }
     }
+    if (e.key == "Enter" && e.target.id && !isNaN(e.target.id)) {
+        let next = document.getElementById((Math.floor(Number(e.target.id) / 26) + 1) * 26);
+        if (next) {
+            next.focus();
+        }
+    }
 }
