@@ -1,16 +1,40 @@
 import * as Storage from "./storage.js"
+import * as Router from "./router.js"
 
 class NotebookPage extends HTMLElement {
     constructor() {
         super();
+        this.pageNum;
+        this.cells = [];
     }
-    renderCells(cells) {
-        cells.forEach(this.createCell, this);
+    getValuesFromStorage(pageNum) {
+        var page;
+        page = JSON.parse(localStorage.getItem(pageNum));
+        if (!page)
+            page = Storage.createPage(pageNum);
+        this.cells = page.cells;
     }
-    updateCells(cells) {
+    renderCells() {
+        var location = Router.getLocation();
+        if (location.pageNum) {
+            if (location.pageNum != this.pageNum) {
+                this.pageNum = location.pageNum;
+                this.cells = [];
+            }
+            if (this.cells.length == 0)
+                this.getValuesFromStorage(location.pageNum);
+            if (!this.firstElementChild.querySelector(".cell"))
+                this.cells.forEach(this.createCell, this);
+            else
+                this.populateCells();
+        } else {
+            console.log("hide");
+        }
+    }
+    populateCells() {
         this.firstElementChild.querySelectorAll(".cell").forEach(updateValue, this);
         function updateValue(element, index) {
-            element.value = cells[index].value;
+            element.value = this.cells[index].value;
         }
     }
     createCell(cell, index) {
@@ -26,38 +50,20 @@ class NotebookPage extends HTMLElement {
 
 customElements.define("notebook-page", NotebookPage);
 
-var pageNum = 1;
+var grid = document.querySelector("article.grid");
+var page = document.querySelector("notebook-page");
 
-// if (!history.state) {
-let path = document.location.pathname;
-if (path.includes("page")) {
-    pageNum = path.replace(/\D/g, "");
-}
-// }
+page.renderCells();
 
-if (!localStorage.getItem(pageNum - 1)) {
-    Storage.initializeStorage();
-}
-
-var page = JSON.parse(localStorage.getItem(pageNum - 1));
-
-var pageElement = document.querySelector("article.grid");
-
-var notebookPageElement = document.querySelector("notebook-page");
-
-notebookPageElement.renderCells(page.cells);
-
-// pageElement.render = render
-pageElement.addEventListener("click", clickHandler);
-pageElement.addEventListener("input", tabOnMaxLen);
-pageElement.addEventListener("input", updateCellValue);
-pageElement.addEventListener("keydown", gridNavHandler);
-
-document.querySelector("#btn-next").addEventListener("click", nextPage);
-document.querySelector("#btn-prev").addEventListener("click", previousPage);
+grid.addEventListener("click", clickHandler);
+grid.addEventListener("input", tabOnMaxLen);
+grid.addEventListener("input", updateCellValue);
+grid.addEventListener("keydown", gridNavHandler);
+document.querySelector("#btn-next").addEventListener("click", nextPageHandler);
+document.querySelector("#btn-prev").addEventListener("click", previousPageHandler);
 
 var pageNumElement = document.querySelector("#page-num");
-pageNumElement.innerText = pageNum;
+pageNumElement.innerText = Router.getLocation().pageNum;
 // page.querySelector(".cell").focus();
 
 function clickHandler(e) {
@@ -65,12 +71,6 @@ function clickHandler(e) {
         e.target.focus();
     }
 }
-
-// function cellInputChange(e) {
-//     if (e && e.target) {
-//         console.log(e.target.value);
-//     }
-// }
 
 function tabOnMaxLen(e) {
     if (e.target &&
@@ -85,13 +85,11 @@ function updateCellValue(e) {
     if (e.target && e.target.className == "cell") {
         var value = e.target.value;
         var id = e.target.id;
-        console.log(value, id);
         page.cells[id] = {
             value,
             id: Number(id)
         };
-        console.log(page);
-        Storage.updateStorageItem(pageNum, page);
+        Storage.updateStorageItem(Router.getLocation().pageNum, page);
     }
 }
 
@@ -125,22 +123,14 @@ function gridNavHandler(e) {
     }
 }
 
-function nextPage() {
-    if (pageNum < 100) {
-        pageNum++;
-        history.pushState({}, '', `/page/${pageNum}`);
-        pageNumElement.innerText = pageNum;
-        page = JSON.parse(localStorage.getItem(pageNum - 1));
-        notebookPageElement.updateCells(page.cells);
-    }
+function nextPageHandler() {
+    Router.nextPage();
+    page.renderCells();
+    pageNumElement.innerText = Router.getLocation().pageNum;
 }
 
-function previousPage() {
-    if (pageNum > 1) {
-        pageNum--;
-        history.pushState({ id: pageNum }, '', `/page/${pageNum}`);
-        pageNumElement.innerText = pageNum;
-        page = JSON.parse(localStorage.getItem(pageNum - 1));
-        notebookPageElement.updateCells(page.cells);
-    }
+function previousPageHandler() {
+    Router.previousPage();
+    page.renderCells();
+    pageNumElement.innerText = Router.getLocation().pageNum;
 }
