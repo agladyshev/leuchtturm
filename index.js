@@ -7,6 +7,12 @@ class NotebookPage extends HTMLElement {
     renderCells(cells) {
         cells.forEach(this.createCell, this);
     }
+    updateCells(cells) {
+        this.firstElementChild.querySelectorAll(".cell").forEach(updateValue, this);
+        function updateValue(element, index) {
+            element.value = cells[index].value;
+        }
+    }
     createCell(cell, index) {
         let cellElement = document.createElement("input");
         cellElement.className = "cell";
@@ -14,7 +20,6 @@ class NotebookPage extends HTMLElement {
         cellElement.maxLength = 1;
         cellElement.size = 1;
         cellElement.setAttribute('id', cell.id);
-        console.log(this);
         this.firstElementChild.appendChild(cellElement);
     }
 }
@@ -23,13 +28,12 @@ customElements.define("notebook-page", NotebookPage);
 
 var pageNum = 1;
 
-if (!history.state) {
-    let path = document.location.pathname;
-    if (path.includes("page")) {
-        pageNum = path.replace(/\D/g, "");
-        console.log(pageNum);
-    }
+// if (!history.state) {
+let path = document.location.pathname;
+if (path.includes("page")) {
+    pageNum = path.replace(/\D/g, "");
 }
+// }
 
 if (!localStorage.getItem(pageNum - 1)) {
     Storage.initializeStorage();
@@ -127,24 +131,16 @@ function nextPage() {
         history.pushState({}, '', `/page/${pageNum}`);
         pageNumElement.innerText = pageNum;
         page = JSON.parse(localStorage.getItem(pageNum - 1));
-        updateCellValues.call(this);
+        notebookPageElement.updateCells(page.cells);
     }
 }
 
 function previousPage() {
-    console.log(this);
     if (pageNum > 1) {
         pageNum--;
-        history.pushState({}, '', `/page/${pageNum}`);
+        history.pushState({ id: pageNum }, '', `/page/${pageNum}`);
         pageNumElement.innerText = pageNum;
         page = JSON.parse(localStorage.getItem(pageNum - 1));
+        notebookPageElement.updateCells(page.cells);
     }
-}
-
-function updateCellValues() {
-    console.log(this);
-    // pageElement.querySelectorAll(".cell").forEach(updateValue, this)
-    // function updateElementValue(element, index) {
-    // element.value = this.page.cells[index].value;
-    // }
 }
