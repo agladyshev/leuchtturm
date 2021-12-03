@@ -1,11 +1,5 @@
 import * as Storage from "./storage.js"
 
-if (!localStorage.getItem("pages")) {
-    Storage.initializeStorage();
-}
-
-var pages = JSON.parse(localStorage.getItem("pages"));
-
 var pageNum = 1;
 
 if (!history.state) {
@@ -16,22 +10,30 @@ if (!history.state) {
     }
 }
 
-var page = document.querySelector("article.grid");
+if (!localStorage.getItem(pageNum - 1)) {
+    Storage.initializeStorage();
+}
 
-pages[pageNum - 1].cells.forEach(function createCell(cell, index) {
+var page = JSON.parse(localStorage.getItem(pageNum - 1));
+
+var pageElement = document.querySelector("article.grid");
+
+page.cells.forEach(function createCell(cell, index) {
     let cellElement = document.createElement("input");
     cellElement.className = "cell";
-    cellElement.innerText = cell.value;
+    cellElement.value = cell.value;
+    // cellElement.innerText = cell.value;
     cellElement.maxLength = 1;
     cellElement.size = 1;
     // cellElement.setAttribute('tabindex', '-1');
     cellElement.setAttribute('id', cell.id);
     // cellElement.onchange = cellInputChange();
-    page.appendChild(cellElement);
+    pageElement.appendChild(cellElement);
 })
-page.addEventListener("click", clickHandler);
-page.addEventListener("input", tabOnMaxLen);
-page.addEventListener("keydown", gridNavHandler);
+pageElement.addEventListener("click", clickHandler);
+pageElement.addEventListener("input", tabOnMaxLen);
+pageElement.addEventListener("input", updateCellValue);
+pageElement.addEventListener("keydown", gridNavHandler);
 
 document.querySelector("#btn-next").addEventListener("click", nextPage);
 document.querySelector("#btn-prev").addEventListener("click", previousPage);
@@ -58,6 +60,20 @@ function tabOnMaxLen(e) {
         e.target.value.length == e.target.maxLength) {
         if (e.target.nextSibling)
             e.target.nextSibling.focus();
+    }
+}
+
+function updateCellValue(e) {
+    if (e.target && e.target.className == "cell") {
+        var value = e.target.value;
+        var id = e.target.id;
+        console.log(value, id);
+        page.cells[id] = {
+            value,
+            id: Number(id)
+        };
+        console.log(page);
+        Storage.updateStorageItem(pageNum, page);
     }
 }
 
@@ -92,7 +108,7 @@ function gridNavHandler(e) {
 }
 
 function nextPage() {
-    if (pageNum < pages.length) {
+    if (pageNum < 100) {
         pageNum++;
         history.pushState({}, '', `/page/${pageNum}`);
         pageNumElement.innerText = pageNum;

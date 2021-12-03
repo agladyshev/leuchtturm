@@ -10,13 +10,22 @@ function initializeStorage() {
             });
         }
         pages.push({
-            num: i,
+            // num: i,
             cells: cells
         })
     }
-    localStorage.setItem('pages', JSON.stringify(pages));
+    pages.forEach((page, index) => localStorage.setItem(index, JSON.stringify(page)));
+}
+
+function updateStorageItem(itemName, item) {
+    console.log("here");
+    console.log(typeof itemName);
+    console.log(item);
+    localStorage.setItem(itemName - 1, JSON.stringify(item));
+    console.log(localStorage.getItem(itemName - 1));
 }
 
 export {
-    initializeStorage
+    initializeStorage,
+    updateStorageItem
 };
