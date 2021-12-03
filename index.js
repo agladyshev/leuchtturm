@@ -6,9 +6,19 @@ if (!localStorage.getItem("pages")) {
 
 var pages = JSON.parse(localStorage.getItem("pages"));
 
+var page_num = 1;
+
+if (!history.state) {
+    let path = document.location.pathname;
+    if (path.includes("page")) {
+        page_num = path.replace(/\D/g, "");
+        console.log(page_num);
+    }
+}
+
 var page = document.querySelector("article.grid");
 
-pages[0].cells.forEach(function createCell(cell, index) {
+pages[page_num - 1].cells.forEach(function createCell(cell, index) {
     let cellElement = document.createElement("input");
     cellElement.className = "cell";
     cellElement.innerText = cell.value;
