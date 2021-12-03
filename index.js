@@ -6,19 +6,19 @@ if (!localStorage.getItem("pages")) {
 
 var pages = JSON.parse(localStorage.getItem("pages"));
 
-var page_num = 1;
+var pageNum = 1;
 
 if (!history.state) {
     let path = document.location.pathname;
     if (path.includes("page")) {
-        page_num = path.replace(/\D/g, "");
-        console.log(page_num);
+        pageNum = path.replace(/\D/g, "");
+        console.log(pageNum);
     }
 }
 
 var page = document.querySelector("article.grid");
 
-pages[page_num - 1].cells.forEach(function createCell(cell, index) {
+pages[pageNum - 1].cells.forEach(function createCell(cell, index) {
     let cellElement = document.createElement("input");
     cellElement.className = "cell";
     cellElement.innerText = cell.value;
@@ -33,6 +33,11 @@ page.addEventListener("click", clickHandler);
 page.addEventListener("input", tabOnMaxLen);
 page.addEventListener("keydown", gridNavHandler);
 
+document.querySelector("#btn-next").addEventListener("click", nextPage);
+document.querySelector("#btn-prev").addEventListener("click", previousPage);
+
+var pageNumElement = document.querySelector("#page-num");
+pageNumElement.innerText = pageNum;
 // page.querySelector(".cell").focus();
 
 function clickHandler(e) {
@@ -83,5 +88,21 @@ function gridNavHandler(e) {
         if (next) {
             next.focus();
         }
+    }
+}
+
+function nextPage() {
+    if (pageNum < pages.length) {
+        pageNum++;
+        history.pushState({}, '', `/page/${pageNum}`);
+        pageNumElement.innerText = pageNum;
+    }
+}
+
+function previousPage() {
+    if (pageNum > 1) {
+        pageNum--;
+        history.pushState({}, '', `/page/${pageNum}`);
+        pageNumElement.innerText = pageNum;
     }
 }
