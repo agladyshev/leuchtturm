@@ -1,5 +1,26 @@
 import * as Storage from "./storage.js"
 
+class NotebookPage extends HTMLElement {
+    constructor() {
+        super();
+    }
+    renderCells(cells) {
+        cells.forEach(this.createCell, this);
+    }
+    createCell(cell, index) {
+        let cellElement = document.createElement("input");
+        cellElement.className = "cell";
+        cellElement.value = cell.value;
+        cellElement.maxLength = 1;
+        cellElement.size = 1;
+        cellElement.setAttribute('id', cell.id);
+        console.log(this);
+        this.firstElementChild.appendChild(cellElement);
+    }
+}
+
+customElements.define("notebook-page", NotebookPage);
+
 var pageNum = 1;
 
 if (!history.state) {
@@ -18,18 +39,11 @@ var page = JSON.parse(localStorage.getItem(pageNum - 1));
 
 var pageElement = document.querySelector("article.grid");
 
-page.cells.forEach(function createCell(cell, index) {
-    let cellElement = document.createElement("input");
-    cellElement.className = "cell";
-    cellElement.value = cell.value;
-    // cellElement.innerText = cell.value;
-    cellElement.maxLength = 1;
-    cellElement.size = 1;
-    // cellElement.setAttribute('tabindex', '-1');
-    cellElement.setAttribute('id', cell.id);
-    // cellElement.onchange = cellInputChange();
-    pageElement.appendChild(cellElement);
-})
+var notebookPageElement = document.querySelector("notebook-page");
+
+notebookPageElement.renderCells(page.cells);
+
+// pageElement.render = render
 pageElement.addEventListener("click", clickHandler);
 pageElement.addEventListener("input", tabOnMaxLen);
 pageElement.addEventListener("input", updateCellValue);
@@ -112,13 +126,25 @@ function nextPage() {
         pageNum++;
         history.pushState({}, '', `/page/${pageNum}`);
         pageNumElement.innerText = pageNum;
+        page = JSON.parse(localStorage.getItem(pageNum - 1));
+        updateCellValues.call(this);
     }
 }
 
 function previousPage() {
+    console.log(this);
     if (pageNum > 1) {
         pageNum--;
         history.pushState({}, '', `/page/${pageNum}`);
         pageNumElement.innerText = pageNum;
+        page = JSON.parse(localStorage.getItem(pageNum - 1));
     }
+}
+
+function updateCellValues() {
+    console.log(this);
+    // pageElement.querySelectorAll(".cell").forEach(updateValue, this)
+    // function updateElementValue(element, index) {
+    // element.value = this.page.cells[index].value;
+    // }
 }

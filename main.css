@@ -52,7 +52,7 @@ main.notebook {
     height: calc(100vh - 4em);
 }
 
-div.page {
+notebook-page.page {
     background-color: ivory;
     padding: calc((100vh - 5em) / 41);
     padding-bottom: 0;
