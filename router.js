@@ -10,6 +10,8 @@ function resolvePath() {
     if (location.pathname.includes("page")) {
         location.pageNum = location.pathname.replace(/\D/g, "");
     }
+    // else if (location.pathname == "/")
+    // location.pageNum = 1;
     return location;
 }
 
