@@ -14,7 +14,7 @@ class NotebookPage extends HTMLElement {
             page = Storage.createPage(pageNum);
         this.cells = page.cells;
     }
-    renderCells() {
+    render() {
         var location = Router.getLocation();
         if (location.pageNum) {
             if (location.pageNum != this.pageNum) {
@@ -48,12 +48,32 @@ class NotebookPage extends HTMLElement {
     }
 }
 
+class Counter extends HTMLElement {
+    constructor() {
+        super();
+        this.pageNum;
+    }
+    getPageNumber() {
+        this.pageNum = Router.getLocation().pageNum;
+        if (!this.pageNum)
+            this.pageNum = "";
+        return (this.pageNum);
+    }
+    render() {
+        this.getPageNumber();
+        this.innerText = this.pageNum;
+    }
+}
+
 customElements.define("notebook-page", NotebookPage);
+customElements.define("page-counter", Counter);
 
 var grid = document.querySelector("article.grid");
 var page = document.querySelector("notebook-page");
+var counter = document.querySelector("#page-num");
 
-page.renderCells();
+counter.render();
+page.render();
 
 grid.addEventListener("click", clickHandler);
 grid.addEventListener("input", tabOnMaxLen);
@@ -62,9 +82,7 @@ grid.addEventListener("keydown", gridNavHandler);
 document.querySelector("#btn-next").addEventListener("click", nextPageHandler);
 document.querySelector("#btn-prev").addEventListener("click", previousPageHandler);
 
-var pageNumElement = document.querySelector("#page-num");
-pageNumElement.innerText = Router.getLocation().pageNum;
-// page.querySelector(".cell").focus();
+// Event listeners. Mouse and keyboard controls. Navigation.
 
 function clickHandler(e) {
     if (e.target && e.target.className == "cell") {
@@ -82,6 +100,7 @@ function tabOnMaxLen(e) {
 }
 
 function updateCellValue(e) {
+    //TODO rewrite as a Page method?
     if (e.target && e.target.className == "cell") {
         var value = e.target.value;
         var id = e.target.id;
@@ -125,12 +144,12 @@ function gridNavHandler(e) {
 
 function nextPageHandler() {
     Router.nextPage();
-    page.renderCells();
-    pageNumElement.innerText = Router.getLocation().pageNum;
+    page.render();
+    counter.render();
 }
 
 function previousPageHandler() {
     Router.previousPage();
-    page.renderCells();
-    pageNumElement.innerText = Router.getLocation().pageNum;
+    page.render();
+    counter.render();
 }
