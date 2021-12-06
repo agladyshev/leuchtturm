@@ -9,9 +9,8 @@ function resolvePath() {
     location.pathname = document.location.pathname;
     if (location.pathname.includes("page")) {
         location.pageNum = location.pathname.replace(/\D/g, "");
-    }
-    // else if (location.pathname == "/")
-    // location.pageNum = 1;
+    } else if (location.pathname == "/")
+        location.pageNum = 1;
     return location;
 }
 
@@ -20,7 +19,9 @@ function nextPage() {
         location.pageNum = 1;
     if (location.pageNum < 100) {
         location.pageNum++;
-        history.pushState({ id: location.pageNum }, '', `/page/${location.pageNum}`);
+        history.pushState({
+            id: location.pageNum
+        }, '', `/page/${location.pageNum}`);
     }
 }
 
@@ -29,8 +30,15 @@ function previousPage() {
         location.pageNum = 1;
     if (location.pageNum > 1) {
         location.pageNum--;
-        history.pushState({ id: location.pageNum }, '', `/page/${location.pageNum}`);
+        history.pushState({
+            id: location.pageNum
+        }, '', `/page/${location.pageNum}`);
     }
 }
 
-export { resolvePath, nextPage, previousPage, getLocation };
+export {
+    resolvePath,
+    nextPage,
+    previousPage,
+    getLocation
+};
