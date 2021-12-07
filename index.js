@@ -58,7 +58,7 @@ class NotebookPage extends HTMLElement {
             }
             if (this.cells.length == 0)
                 this.getValuesFromStorage(location.pageNum);
-            if (!this.querySelector(".cell")) {
+            if (!this.grid.querySelector("input.cell")) {
                 this.cells.forEach(this.createCell, this);
                 this.createPaddingCells(28, 40);
             } else
@@ -68,7 +68,7 @@ class NotebookPage extends HTMLElement {
         }
     }
     populateCells() {
-        this.page.querySelectorAll("input.cell").forEach(updateValue, this);
+        this.grid.querySelectorAll("input.cell").forEach(updateValue, this);
 
         function updateValue(element, index) {
             element.value = this.cells[index].value;
