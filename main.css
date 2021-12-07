@@ -26,7 +26,7 @@ body {
     box-sizing: border-box;
 }
 
-body>header {
+header {
     text-align: center;
     height: 1.5rem;
     display: flex;
@@ -35,7 +35,7 @@ body>header {
     box-sizing: border-box;
 }
 
-body>footer {
+footer {
     text-align: right;
     height: 1.5rem;
     padding: 0 0.5rem;
@@ -45,7 +45,7 @@ body>footer {
     box-sizing: border-box;
 }
 
-body>footer>button {
+footer>button {
     padding: 0;
     background-color: transparent;
     border: none;

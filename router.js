@@ -15,13 +15,16 @@ function resolvePath() {
 }
 
 function nextPage() {
+    console.log("yo");
     if (!location.pageNum)
         location.pageNum = 1;
     if (location.pageNum < 100) {
         location.pageNum++;
+        console.log(location.pageNum);
         history.pushState({
             id: location.pageNum
         }, '', `/page/${location.pageNum}`);
+        console.log("push");
     }
 }
 
