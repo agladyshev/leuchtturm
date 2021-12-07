@@ -110,11 +110,14 @@ document.querySelector("#btn-prev").addEventListener("click", previousPageHandle
 // Event listeners. Mouse and keyboard controls. Navigation.
 
 function rewriteCell(e) {
-    if (e.data != e.target.value) {
+    var newValue = e.data;
+    if (e.inputType == "deleteContentBackward")
+        newValue = "";
+    if (typeof newValue == "string" && e.data != e.target.value) {
         e.target.value = e.data;
         updateCellValue(e);
+        tabOnMaxLen(e);
     }
-    tabOnMaxLen(e);
 }
 
 function clickHandler(e) {
