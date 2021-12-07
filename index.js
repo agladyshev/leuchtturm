@@ -33,7 +33,7 @@ class NotebookPage extends HTMLElement {
         }
     }
     populateCells() {
-        this.firstElementChild.querySelectorAll(".cell").forEach(updateValue, this);
+        this.querySelectorAll("input.cell").forEach(updateValue, this);
 
         function updateValue(element, index) {
             element.value = this.cells[index].value;
