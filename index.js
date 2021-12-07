@@ -51,6 +51,7 @@ class NotebookPage extends HTMLElement {
     render() {
         var location = Router.getLocation();
         if (location.pageNum) {
+            this.counter.render();
             if (location.pageNum != this.pageNum) {
                 this.pageNum = location.pageNum;
                 this.cells = [];
@@ -137,12 +138,15 @@ class NotebookPage extends HTMLElement {
         //TODO rewrite as a Page method?
         if (e.target && e.target.className == "cell") {
             var value = e.target.value;
-            var id = e.target.id;
+            var id = e.target.id.match(/\d+/)[0];
             page.cells[id] = {
                 value,
                 id: Number(id)
             };
-            Storage.updateStorageItem(Router.getLocation().pageNum, page);
+            var pageObj = {
+                cells: page.cells
+            };
+            Storage.updateStorageItem(Router.getLocation().pageNum, pageObj);
         }
     }
 
@@ -201,8 +205,10 @@ customElements.define("page-counter", Counter);
 var notebook = document.querySelector("main.notebook");
 var page = document.createElement("notebook-page");
 notebook.appendChild(page);
-
+// var page2 = document.createElement("notebook-page");
+// notebook.appendChild(page2);
 page.render();
+// page2.render();
 document.querySelector("#btn-next").addEventListener("click", nextPageHandler);
 document.querySelector("#btn-prev").addEventListener("click", previousPageHandler);
 
