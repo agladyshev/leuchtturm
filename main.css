@@ -60,7 +60,7 @@ main.notebook {
     box-sizing: border-box;
 }
 
-notebook-page.page {
+notebook-page {
     background-color: ivory;
     padding-bottom: 0;
     border-radius: 1rem 0 0 1rem;
@@ -73,116 +73,4 @@ notebook-page.page {
         "aside-left grid aside-right"
         "aside-left footer aside-right";
     margin: auto;
-}
-
-.page header {
-    display: flex;
-}
-
-.page header .cell {
-    background: url('border-top.svg');
-    background-size: var(--cell-size) var(--cell-size);
-    opacity: 0.3;
-}
-
-.page aside {
-    width: var(--cell-size);
-}
-
-.page aside :last-child {
-    height: calc(2 * var(--cell-size));
-}
-
-.page .aside-left {
-    grid-area: aside-left;
-}
-
-.page .aside-left .cell {
-    background: url('border-left.svg');
-    background-size: var(--cell-size) auto;
-    opacity: 0.3;
-}
-
-.page .aside-left :first-child {
-    background: url('border-top-left.svg');
-    background-size: var(--cell-size) auto;
-}
-
-.page .aside-left :last-child {
-    background: url('border-bottom-left.svg');
-    background-size: var(--cell-size) calc(2 * var(--cell-size));
-}
-
-.page .aside-right {
-    grid-area: aside-right;
-}
-
-.page .aside-right .cell {
-    background: url('border-right.svg');
-    background-size: var(--cell-size) auto;
-    opacity: 0.3;
-}
-
-.page .aside-right :first-child {
-    background: url('border-top-right.svg');
-    background-size: var(--cell-size) auto;
-}
-
-.page .aside-right :last-child {
-    background: url('border-bottom-right.svg');
-    background-size: var(--cell-size) calc(2 * var(--cell-size));
-}
-
-article.grid {
-    grid-area: grid;
-    position: relative;
-    display: grid;
-    grid-template-columns: repeat(26, 1fr);
-    grid-template-rows: repeat(38, 1fr);
-    box-sizing: border-box;
-}
-
-.cell {
-    height: var(--cell-size);
-    width: var(--cell-size);
-}
-
-input.cell {
-    border-radius: 0;
-    text-align: center;
-    background: url('border.svg');
-    background-size: var(--cell-size);
-    border: none;
-    padding: 0;
-    background-color: inherit;
-    font-family: 'Klee One', cursive;
-    box-sizing: border-box;
-}
-
-input.cell:focus {
-    outline: none;
-    caret-color: transparent;
-    background-color: #f0f0e4;
-}
-
-.page footer {
-    position: relative;
-    grid-area: footer;
-    text-align: left;
-    height: calc(var(--cell-size) * 2);
-    display: flex;
-    font-size: 0.8em;
-    color: #b2b3ab;
-    box-sizing: border-box;
-}
-
-.page footer .cell {
-    background: url('border-bottom.svg');
-    background-size: var(--cell-size) auto;
-}
-
-.page footer page-counter {
-    position: absolute;
-    left: 0.2rem;
-    top: 0.5rem;
 }
