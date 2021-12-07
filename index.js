@@ -102,11 +102,20 @@ page.render();
 grid.addEventListener("click", clickHandler);
 grid.addEventListener("input", tabOnMaxLen);
 grid.addEventListener("input", updateCellValue);
+grid.addEventListener("beforeinput", rewriteCell);
 grid.addEventListener("keydown", gridNavHandler);
 document.querySelector("#btn-next").addEventListener("click", nextPageHandler);
 document.querySelector("#btn-prev").addEventListener("click", previousPageHandler);
 
 // Event listeners. Mouse and keyboard controls. Navigation.
+
+function rewriteCell(e) {
+    if (e.data != e.target.value) {
+        e.target.value = e.data;
+        updateCellValue(e);
+    }
+    tabOnMaxLen(e);
+}
 
 function clickHandler(e) {
     if (e.target && e.target.className == "cell") {
