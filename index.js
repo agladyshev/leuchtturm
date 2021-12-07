@@ -23,9 +23,10 @@ class NotebookPage extends HTMLElement {
             }
             if (this.cells.length == 0)
                 this.getValuesFromStorage(location.pageNum);
-            if (!this.firstElementChild.querySelector(".cell"))
+            if (!this.querySelector(".cell")) {
                 this.cells.forEach(this.createCell, this);
-            else
+                this.createPaddingCells(28, 40);
+            } else
                 this.populateCells();
         } else {
             console.log("hide");
@@ -33,6 +34,7 @@ class NotebookPage extends HTMLElement {
     }
     populateCells() {
         this.firstElementChild.querySelectorAll(".cell").forEach(updateValue, this);
+
         function updateValue(element, index) {
             element.value = this.cells[index].value;
         }
@@ -44,7 +46,29 @@ class NotebookPage extends HTMLElement {
         cellElement.maxLength = 1;
         cellElement.size = 1;
         cellElement.setAttribute('id', cell.id);
-        this.firstElementChild.appendChild(cellElement);
+        this.querySelector(".grid").appendChild(cellElement);
+    }
+    createPaddingCells(x, y) {
+        for (let i = 0; i < x - 2; i++) {
+            let el = document.createElement("div");
+            el.className = "cell";
+            this.querySelector("header").appendChild(el);
+        }
+        for (let i = 0; i < x - 2; i++) {
+            let el = document.createElement("div");
+            el.className = "cell";
+            this.querySelector("footer").appendChild(el);
+        }
+        for (let i = 0; i < y; i++) {
+            let el = document.createElement("div");
+            el.className = "cell";
+            this.querySelector(".aside-left").appendChild(el);
+        }
+        for (let i = 0; i < y; i++) {
+            let el = document.createElement("div");
+            el.className = "cell";
+            this.querySelector(".aside-right").appendChild(el);
+        }
     }
 }
 

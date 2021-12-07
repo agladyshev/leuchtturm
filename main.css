@@ -1,5 +1,5 @@
 :root {
-    --cell-size: calc(min(((100vh - 4rem) / 41), (100vw / 28)));
+    --cell-size: calc(min(((100vh - 3rem) / 41), (100vw / 28)));
 }
 
 @font-face {
@@ -62,15 +62,79 @@ main.notebook {
 
 notebook-page.page {
     background-color: ivory;
-    padding: var(--cell-size);
     padding-bottom: 0;
     border-radius: 1rem 0 0 1rem;
     width: fit-content;
     max-width: 100vw;
     box-sizing: border-box;
+    display: grid;
+    height: fit-content;
+    grid-template-areas: "aside-left header aside-right"
+        "aside-left grid aside-right"
+        "aside-left footer aside-right";
+    margin: auto;
+}
+
+.page header {
+    display: flex;
+}
+
+.page header .cell {
+    background: url('border-top.svg');
+    background-size: var(--cell-size) var(--cell-size);
+    opacity: 0.3;
+}
+
+.page aside {
+    width: var(--cell-size);
+}
+
+.page aside :last-child {
+    height: calc(2 * var(--cell-size));
+}
+
+.page .aside-left {
+    grid-area: aside-left;
+}
+
+.page .aside-left .cell {
+    background: url('border-left.svg');
+    background-size: var(--cell-size) auto;
+    opacity: 0.3;
+}
+
+.page .aside-left :first-child {
+    background: url('border-top-left.svg');
+    background-size: var(--cell-size) auto;
+}
+
+.page .aside-left :last-child {
+    background: url('border-bottom-left.svg');
+    background-size: var(--cell-size) calc(2 * var(--cell-size));
+}
+
+.page .aside-right {
+    grid-area: aside-right;
+}
+
+.page .aside-right .cell {
+    background: url('border-right.svg');
+    background-size: var(--cell-size) auto;
+    opacity: 0.3;
+}
+
+.page .aside-right :first-child {
+    background: url('border-top-right.svg');
+    background-size: var(--cell-size) auto;
+}
+
+.page .aside-right :last-child {
+    background: url('border-bottom-right.svg');
+    background-size: var(--cell-size) calc(2 * var(--cell-size));
 }
 
 article.grid {
+    grid-area: grid;
     position: relative;
     display: grid;
     grid-template-columns: repeat(26, 1fr);
@@ -78,39 +142,16 @@ article.grid {
     box-sizing: border-box;
 }
 
-div.cover {
-    position: absolute;
-    overflow: hidden;
-    height: calc(var(--cell-size) * 39);
-    width: calc(var(--cell-size) * 27);
-    top: calc(var(--cell-size) / 2 * (-1));
-    left: calc(var(--cell-size) / 2 * (-1));
-    pointer-events: none;
-    box-sizing: border-box;
-}
-
-div.cover .image {
-    position: absolute;
-    height: calc(var(--cell-size) * 40);
-    width: calc(var(--cell-size) * 28);
-    top: calc(var(--cell-size) / 2 * (-1));
-    left: calc(var(--cell-size) / 2 * (-1));
-    background: url('border.png');
-    background-size: var(--cell-size) var(--cell-size);
-    opacity: 0.3;
-    pointer-events: none;
-    box-sizing: border-box;
+.cell {
+    height: var(--cell-size);
+    width: var(--cell-size);
 }
 
 input.cell {
-    appearance: none;
-    -webkit-appearance: none;
     border-radius: 0;
-    height: var(--cell-size);
-    width: var(--cell-size);
     text-align: center;
-    /* background: url('border.png'); */
-    /* background-size: var(--cell-size); */
+    background: url('border.svg');
+    background-size: var(--cell-size);
     border: none;
     padding: 0;
     background-color: inherit;
@@ -126,11 +167,23 @@ input.cell:focus {
 }
 
 .page footer {
+    position: relative;
+    grid-area: footer;
     text-align: left;
     height: calc(var(--cell-size) * 2);
     display: flex;
-    align-items: center;
     font-size: 0.8em;
     color: #b2b3ab;
     box-sizing: border-box;
+}
+
+.page footer .cell {
+    background: url('border-bottom.svg');
+    background-size: var(--cell-size) auto;
+}
+
+.page footer page-counter {
+    position: absolute;
+    left: 0.2rem;
+    top: 0.5rem;
 }

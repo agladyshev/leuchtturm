@@ -1,35 +1,40 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-        <title>Leuchtturm 1917 A5</title>
-        <link rel="preconnect" href="https://fonts.googleapis.com">
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=Klee+One&display=swap" rel="stylesheet">
-        <link rel="stylesheet" href="/main.css">
-        <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-        <link rel="manifest" href="/site.webmanifest">
-        <script type="module" src="/storage.js"></script>
-        <script async src="/index.js" type="module"></script>
-    </head>
-    <body>
-        <header>Leuchtturm 1917</header>
-        <main class="notebook">
-            <notebook-page class="page">
-                <article class="grid">
-                    <div class="cover">
-                        <div class="image"></div>
-                    </div>
-                </article>
-                <footer><page-counter id="page-num"></page-counter></footer>
-            </notebook-page>
-        </main>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>Leuchtturm 1917 A5</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Klee+One&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/main.css">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+    <script type="module" src="/storage.js"></script>
+    <script async src="/index.js" type="module"></script>
+</head>
+
+<body>
+    <header>Leuchtturm 1917</header>
+    <main class="notebook">
+        <notebook-page class="page">
+            <aside class="aside-left"></aside>
+            <header></header>
+            <article class="grid">
+            </article>
+            <footer>
+                <page-counter id="page-num"></page-counter>
+            </footer>
+            <aside class="aside-right"></aside>
+        </notebook-page>
+    </main>
     <footer>
         <button id="btn-prev">〈 previous</button>
         <button id="btn-next">next 〉</button>
     </footer>
-    </body>
+</body>
+
 </html>
