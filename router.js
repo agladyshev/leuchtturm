@@ -15,16 +15,15 @@ function resolvePath() {
 }
 
 function nextPage() {
-    console.log("yo");
     if (!location.pageNum)
         location.pageNum = 1;
     if (location.pageNum < 100) {
         location.pageNum++;
-        console.log(location.pageNum);
+        var state = { id: location.pageNum };
         history.pushState({
-            id: location.pageNum
+            state
         }, '', `/page/${location.pageNum}`);
-        console.log("push");
+        sendPopState(state);
     }
 }
 
@@ -33,10 +32,17 @@ function previousPage() {
         location.pageNum = 1;
     if (location.pageNum > 1) {
         location.pageNum--;
+        var state = { id: location.pageNum };
         history.pushState({
-            id: location.pageNum
+            state
         }, '', `/page/${location.pageNum}`);
+        sendPopState(state);
     }
+}
+
+function sendPopState(state) {
+    var popStateEvent = new PopStateEvent('popstate', { state: state });
+    dispatchEvent(popStateEvent);
 }
 
 export {

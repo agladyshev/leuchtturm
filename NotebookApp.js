@@ -10,6 +10,7 @@ class NotebookApp extends HTMLElement {
         this.nextButton = document.querySelector("#btn-next");
         this.addEventListener("click", this.nextPageHandler);
         this.addEventListener("click", this.previousPageHandler);
+        window.addEventListener("popstate", this.render.bind(this));
     }
 
     render() {
@@ -23,14 +24,14 @@ class NotebookApp extends HTMLElement {
     nextPageHandler(e) {
         if (e.target && e.target.id == "btn-next") {
             Router.nextPage();
-            this.render();
+            // this.render();
         }
     }
 
     previousPageHandler(e) {
         if (e.target && e.target.id == "btn-prev") {
             Router.previousPage();
-            this.render();
+            // this.render();
         }
     }
 }
