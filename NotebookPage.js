@@ -54,7 +54,7 @@ class NotebookPage extends HTMLElement {
     render(pageNum) {
         // var location = Router.getLocation();
         if ((typeof pageNum == "number" || typeof pageNum == "string") && !Number.isNaN(pageNum)) {
-            this.counter.render();
+            this.counter.render(pageNum);
             if (pageNum != this.pageNum) {
                 this.pageNum = location.pageNum;
                 this.grid.cells = [];

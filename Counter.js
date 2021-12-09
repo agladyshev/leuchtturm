@@ -3,17 +3,17 @@ import * as Router from "./router.js"
 class Counter extends HTMLElement {
     constructor() {
         super();
-        this.pageNum;
+        // this.pageNum;
     }
-    getPageNumber() {
-        this.pageNum = Router.getLocation().pageNum;
-        if (!this.pageNum)
-            this.pageNum = "";
-        return (this.pageNum);
-    }
-    render() {
-        this.getPageNumber();
-        this.innerText = this.pageNum;
+    // getPageNumber() {
+    // this.pageNum = Router.getLocation().pageNum;
+    // if (!this.pageNum)
+    // this.pageNum = "";
+    // return (this.pageNum);
+    // }
+    render(pageNum) {
+        // this.getPageNumber();
+        this.innerText = pageNum;
     }
 }
 
