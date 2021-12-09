@@ -56,7 +56,7 @@ class NotebookPage extends HTMLElement {
         if ((typeof pageNum == "number" || typeof pageNum == "string") && !Number.isNaN(pageNum)) {
             this.counter.render(pageNum);
             if (pageNum != this.pageNum) {
-                this.pageNum = location.pageNum;
+                this.pageNum = pageNum;
                 this.grid.cells = [];
             }
             if (this.grid.cells.length == 0)

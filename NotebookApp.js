@@ -2,6 +2,7 @@ import * as Router from "./router.js"
 import {
     NotebookPage
 } from "./NotebookPage.js";
+import { NotebookCover } from "./NotebookCover.js";
 
 class NotebookApp extends HTMLElement {
     constructor() {
@@ -16,17 +17,24 @@ class NotebookApp extends HTMLElement {
     render() {
         if (location.pathname.match(/^\/page\/([0-9]+)\/?$/)) {
             this.pageNum = location.pathname.replace(/\D/g, "");
-            if (!this.page) {
-                this.page = document.createElement("notebook-page");
-                this.notebook.appendChild(this.page);
+            if (this.view && this.view.tagName != "NOTEBOOK-PAGE") {
+                this.view.remove();
+                this.view = null;
             }
-            this.page.render(this.pageNum);
+            if (!this.view) {
+                this.view = document.createElement("notebook-page");
+                this.notebook.appendChild(this.view);
+            }
+            this.view.render(this.pageNum);
         } else if (location.pathname == "/") {
-            // location.pageNum = 1;
-            console.log("here2")
+            if (this.view && this.view.tagName != "NOTEBOOK-COVER") {
+                this.view.remove();
+            }
+            this.view = document.createElement("notebook-cover");
+            console.log(this.view);
+            this.notebook.appendChild(this.view);
         }
         else {
-            console.log("here3");
             Router.navigate("/");
         }
     }

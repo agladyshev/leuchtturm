@@ -74,3 +74,19 @@ notebook-page {
         "aside-left footer aside-right";
     margin: auto;
 }
+
+notebook-cover {
+    background-color: cornflowerblue;
+    padding-bottom: 0;
+    border-radius: 1rem 0 0 1rem;
+    width: fit-content;
+    max-width: 100vw;
+    box-sizing: border-box;
+    /* display: grid; */
+    height: calc(var(--cell-size) * 41);
+    width: calc(var(--cell-size) * 28);
+    /* grid-template-areas: "aside-left header aside-right" */
+        /* "aside-left grid aside-right" */
+        /* "aside-left footer aside-right"; */
+    margin: auto;   
+}

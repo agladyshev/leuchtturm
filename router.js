@@ -20,7 +20,7 @@ function resolvePath() {
 function navigate(path) {
     // var state = { id: location.pageNum };
     var state = {};
-    history.pushState({ state }, '', `/`);
+    history.pushState({ state }, '', path);
     sendPopState(state);
 
 }
