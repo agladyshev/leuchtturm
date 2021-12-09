@@ -14,11 +14,21 @@ class NotebookApp extends HTMLElement {
     }
 
     render() {
-        if (!this.page) {
-            this.page = document.createElement("notebook-page");
-            this.notebook.appendChild(this.page);
+        if (location.pathname.match(/^\/page\/([0-9]+)\/?$/)) {
+            this.pageNum = location.pathname.replace(/\D/g, "");
+            if (!this.page) {
+                this.page = document.createElement("notebook-page");
+                this.notebook.appendChild(this.page);
+            }
+            this.page.render(this.pageNum);
+        } else if (location.pathname == "/") {
+            // location.pageNum = 1;
+            console.log("here2")
         }
-        this.page.render();
+        else {
+            console.log("here3");
+            Router.navigate("/");
+        }
     }
 
     nextPageHandler(e) {

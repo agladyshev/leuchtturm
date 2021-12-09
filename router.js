@@ -8,10 +8,21 @@ function resolvePath() {
     var location = {};
     location.pathname = document.location.pathname;
     if (location.pathname.includes("page")) {
+        // location.page = "dotted";
         location.pageNum = location.pathname.replace(/\D/g, "");
-    } else if (location.pathname == "/")
+    } else if (location.pathname == "/") {
+        // location.page = "main";
         location.pageNum = 1;
+    }
     return location;
+}
+
+function navigate(path) {
+    // var state = { id: location.pageNum };
+    var state = {};
+    history.pushState({ state }, '', `/`);
+    sendPopState(state);
+
 }
 
 function nextPage() {
@@ -49,5 +60,6 @@ export {
     resolvePath,
     nextPage,
     previousPage,
-    getLocation
+    getLocation,
+    navigate
 };

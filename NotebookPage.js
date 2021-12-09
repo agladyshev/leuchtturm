@@ -51,16 +51,16 @@ class NotebookPage extends HTMLElement {
             page = Storage.createPage(pageNum);
         this.grid.cells = page.cells;
     }
-    render() {
-        var location = Router.getLocation();
-        if (location.pageNum) {
+    render(pageNum) {
+        // var location = Router.getLocation();
+        if ((typeof pageNum == "number" || typeof pageNum == "string") && !Number.isNaN(pageNum)) {
             this.counter.render();
-            if (location.pageNum != this.pageNum) {
+            if (pageNum != this.pageNum) {
                 this.pageNum = location.pageNum;
                 this.grid.cells = [];
             }
             if (this.grid.cells.length == 0)
-                this.getValuesFromStorage(location.pageNum);
+                this.getValuesFromStorage(pageNum);
             if (!this.grid.querySelector("input.cell")) {
                 this.grid.cells.forEach(this.createCell, this);
                 this.createPaddingCells(28, 40);
@@ -142,7 +142,6 @@ class NotebookPage extends HTMLElement {
         if (e.target && e.target.className == "cell") {
             var value = e.target.value;
             var id = e.target.id.match(/\d+/)[0];
-            console.log(this);
             this.cells[id] = {
                 value,
                 id: Number(id)
