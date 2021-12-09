@@ -1,7 +1,7 @@
 import * as Storage from "./storage.js"
 import * as Router from "./router.js"
 
-class NotebookCover extends HTMLElement {
+class NotebookIndex extends HTMLElement {
     constructor() {
         super();
         this.attachShadow({
@@ -12,7 +12,7 @@ class NotebookCover extends HTMLElement {
     }
     generateShadowDOM() {
         var stylesheet = document.createElement('link');
-        stylesheet.setAttribute('href', '/cover.css');
+        stylesheet.setAttribute('href', '/index.css');
         stylesheet.setAttribute('rel', 'stylesheet');
         // var asideLeft = document.createElement('aside');
         // asideLeft.className = "aside-left";
@@ -35,8 +35,8 @@ class NotebookCover extends HTMLElement {
     }
 }
 
-customElements.define("notebook-cover", NotebookCover);
+customElements.define("notebook-index", NotebookIndex);
 
 export {
-    NotebookCover
+    NotebookIndex
 };

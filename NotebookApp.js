@@ -3,6 +3,8 @@ import {
     NotebookPage
 } from "./NotebookPage.js";
 import { NotebookCover } from "./NotebookCover.js";
+import { NotebookOwner } from "./NotebookOwner.js";
+import { NotebookIndex } from "./NotebookIndex.js";
 
 class NotebookApp extends HTMLElement {
     constructor() {
@@ -17,25 +19,28 @@ class NotebookApp extends HTMLElement {
     render() {
         if (location.pathname.match(/^\/page\/([0-9]+)\/?$/)) {
             this.pageNum = location.pathname.replace(/\D/g, "");
-            if (this.view && this.view.tagName != "NOTEBOOK-PAGE") {
-                this.view.remove();
-                this.view = null;
-            }
-            if (!this.view) {
-                this.view = document.createElement("notebook-page");
-                this.notebook.appendChild(this.view);
-            }
+            this.createView("notebook-page");
             this.view.render(this.pageNum);
-        } else if (location.pathname == "/") {
-            if (this.view && this.view.tagName != "NOTEBOOK-COVER") {
-                this.view.remove();
-            }
-            this.view = document.createElement("notebook-cover");
-            console.log(this.view);
-            this.notebook.appendChild(this.view);
+        } else if (location.pathname.match(/^\/index\/?$/)) {
+            this.createView("notebook-index");
+        } else if (location.pathname.match(/^\/owner\/?$/)) {
+            this.createView("notebook-owner");
+        }
+        else if (location.pathname == "/") {
+            this.createView("notebook-cover");
         }
         else {
             Router.navigate("/");
+        }
+    }
+    createView(viewName) {
+        if (this.view && this.view.tagName != viewName.toUpperCase()) {
+            this.view.remove();
+            this.view = null;
+        }
+        if (!this.view) {
+            this.view = document.createElement(viewName);
+            this.notebook.appendChild(this.view);
         }
     }
 
