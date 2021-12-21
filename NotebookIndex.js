@@ -61,6 +61,8 @@ class NotebookIndex extends HTMLElement {
             navArrow.className = "nav-arrow";
             navArrow.innerText = "〉";
             navArrow.id = `input-text-${i}`;
+            navArrow.disabled = true;
+            navArrow.style.display = "none";
             line.appendChild(numInput);
             line.appendChild(textInput);
             line.appendChild(navArrow);
@@ -124,13 +126,24 @@ class NotebookIndex extends HTMLElement {
             else if (input.type == "text")
                 input.value = this.index[i].topic;
         }.bind(this.form));
-        // this.renderButtons();
+        this.renderButtons();
     }
-    // renderButtons() {
-    // 
-    // }
+    renderButtons() {
+        this.form.querySelectorAll("button.nav-arrow").forEach(this.enableButton);
+    }
+    enableButton(button, i) {
+        var pageNum = button.form.index[i].page;
+        console.log(pageNum);
+        if (typeof pageNum == "string" && pageNum != "") {
+            button.disabled = false;
+            console.log(button.classList);
+            button.style.display = "block";
+        } else {
+            button.disabled = true;
+            button.style.display = "none";
+        }
+    }
 }
-
 customElements.define("notebook-index", NotebookIndex);
 
 export {
