@@ -46,7 +46,7 @@ class NotebookPage extends HTMLElement {
     }
     getValuesFromStorage(pageNum) {
         var page;
-        page = JSON.parse(localStorage.getItem(pageNum));
+        page = Storage.getItem(pageNum);
         if (!page)
             page = Storage.createPage(pageNum);
         this.grid.cells = page.cells;
@@ -148,7 +148,7 @@ class NotebookPage extends HTMLElement {
             var pageObj = {
                 cells: this.cells
             };
-            Storage.updateStorageItem(this.pageNum, pageObj);
+            Storage.updateItem(this.pageNum, pageObj);
         }
     }
 

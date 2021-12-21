@@ -11,11 +11,16 @@ function createPage(pageNum) {
     return page;
 }
 
-function updateStorageItem(itemName, item) {
+function updateItem(itemName, item) {
     localStorage.setItem(itemName, JSON.stringify(item));
+}
+
+function getItem(itemName) {
+    return JSON.parse(localStorage.getItem(itemName));
 }
 
 export {
     createPage,
-    updateStorageItem
+    updateItem,
+    getItem
 };

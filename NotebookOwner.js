@@ -40,10 +40,10 @@ class NotebookOwner extends HTMLElement {
     }
     getValuesFromStorage() {
         var owner;
-        owner = JSON.parse(localStorage.getItem("owner"));
+        owner = Storage.getItem("owner");
         if (!owner) {
-            owner = localStorage.setItem("owner", ["", "", "", "", "", ""]);
-            owner = localStorage.getItem("owner");
+            owner = Storage.updateItem("owner", ["", "", "", "", "", ""]);
+            owner = Storage.getItem("owner");
         }
         this.form.ownerInfo = owner;
     }
@@ -53,7 +53,7 @@ class NotebookOwner extends HTMLElement {
             var value = e.target.value;
             var id = e.target.id.match(/\d+/)[0];
             this.ownerInfo[id] = value;
-            Storage.updateStorageItem("owner", this.ownerInfo);
+            Storage.updateItem("owner", this.ownerInfo);
         }
     }
     render() {
