@@ -2,9 +2,15 @@ import * as Router from "./router.js"
 import {
     NotebookPage
 } from "./NotebookPage.js";
-import { NotebookCover } from "./NotebookCover.js";
-import { NotebookOwner } from "./NotebookOwner.js";
-import { NotebookIndex } from "./NotebookIndex.js";
+import {
+    NotebookCover
+} from "./NotebookCover.js";
+import {
+    NotebookOwner
+} from "./NotebookOwner.js";
+import {
+    NotebookIndex
+} from "./NotebookIndex.js";
 var paths = {
     views: ["/", "/owner", "/index", "/page/1"],
     pagesMax: 100,
@@ -15,8 +21,7 @@ var paths = {
                 return (location.pathname);
             else
                 return (`/page/${Number(pageNum) + 1}`);
-        }
-        else {
+        } else {
             let current = this.views.indexOf(location.pathname);
             if (current + 1 == this.views.length)
                 return (location.pathname);
@@ -54,8 +59,7 @@ class NotebookApp extends HTMLElement {
             let pageNum = location.pathname.replace(/\D/g, "");
             if (pageNum > paths.pagesMax) {
                 Router.navigate("/");
-            }
-            else {
+            } else {
                 this.createView("notebook-page");
                 this.view.render(pageNum);
             }
@@ -63,11 +67,10 @@ class NotebookApp extends HTMLElement {
             this.createView("notebook-index");
         } else if (location.pathname.match(/^\/owner\/?$/)) {
             this.createView("notebook-owner");
-        }
-        else if (location.pathname == "/") {
+            this.view.render();
+        } else if (location.pathname == "/") {
             this.createView("notebook-cover");
-        }
-        else {
+        } else {
             Router.navigate("/");
         }
     }
