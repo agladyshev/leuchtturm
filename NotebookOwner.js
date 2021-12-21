@@ -8,8 +8,7 @@ class NotebookOwner extends HTMLElement {
             mode: 'open'
         });
         this.generateShadowDOM();
-        this.addListeners();
-        this.owner;
+        // this.addListeners();
     }
     generateShadowDOM() {
         var stylesheet = document.createElement('link');
@@ -47,34 +46,23 @@ class NotebookOwner extends HTMLElement {
             owner = localStorage.setItem("owner", ["", "", "", "", "", ""]);
             owner = localStorage.getItem("owner");
         }
-        this.owner = owner;
+        this.form.ownerInfo = owner;
     }
     addListeners() {}
-    // updateCellValue(e) {
-    //     //TODO rewrite as a Page method?
-    //     if (e.target && e.target.tagName == "INPUT") {
-    //         var value = e.target.value;
-    //         console.log(value);
-    //         var id = e.target.id.match(/\d+/)[0];
-    //         console.log(id);
-    //         this.owner[id] = value;
-    //         console.log(this);
-    //         console.log(this.owner);
-    //         // this.cells[id] = {
-    //         // value,
-    //         // id: Number(id)
-    //         // };
-    //         // var pageObj = {
-    //         // cells: this.cells
-    //         // };
-    //         // Storage.updateStorageItem(Router.getLocation().pageNum, pageObj);
-    //     }
-    // }
+    updateCellValue(e) {
+        //TODO rewrite as a Page method?
+        if (e.target && e.target.tagName == "INPUT") {
+            var value = e.target.value;
+            var id = e.target.id.match(/\d+/)[0];
+            this.ownerInfo[id] = value;
+            Storage.updateStorageItem("owner", this.ownerInfo);
+        }
+    }
     render() {
         this.getValuesFromStorage();
         this.form.querySelectorAll("input").forEach(function setInputValue(input, index) {
-            input.value = this.owner[index];
-        }.bind(this))
+            input.value = this.ownerInfo[index];
+        }.bind(this.form));
     }
 }
 

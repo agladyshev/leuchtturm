@@ -138,7 +138,6 @@ class NotebookPage extends HTMLElement {
     }
 
     updateCellValue(e) {
-        //TODO rewrite as a Page method?
         if (e.target && e.target.className == "cell") {
             var value = e.target.value;
             var id = e.target.id.match(/\d+/)[0];
