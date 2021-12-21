@@ -55,8 +55,8 @@ class NotebookPage extends HTMLElement {
         // var location = Router.getLocation();
         if ((typeof pageNum == "number" || typeof pageNum == "string") && !Number.isNaN(pageNum)) {
             this.counter.render(pageNum);
-            if (pageNum != this.pageNum) {
-                this.pageNum = pageNum;
+            if (pageNum != this.grid.pageNum) {
+                this.grid.pageNum = pageNum;
                 this.grid.cells = [];
             }
             if (this.grid.cells.length == 0)
@@ -148,7 +148,7 @@ class NotebookPage extends HTMLElement {
             var pageObj = {
                 cells: this.cells
             };
-            Storage.updateStorageItem(Router.getLocation().pageNum, pageObj);
+            Storage.updateStorageItem(this.pageNum, pageObj);
         }
     }
 

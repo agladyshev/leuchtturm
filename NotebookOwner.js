@@ -14,7 +14,6 @@ class NotebookOwner extends HTMLElement {
         var stylesheet = document.createElement('link');
         stylesheet.setAttribute('href', '/owner.css');
         stylesheet.setAttribute('rel', 'stylesheet');
-        // var footer = document.createElement('footer');
         var header = document.createElement('header');
         header.innerHTML = `
         <h6>bitte zurücksenden an</h6>
@@ -48,9 +47,8 @@ class NotebookOwner extends HTMLElement {
         }
         this.form.ownerInfo = owner;
     }
-    addListeners() {}
+    // addListeners() {}
     updateCellValue(e) {
-        //TODO rewrite as a Page method?
         if (e.target && e.target.tagName == "INPUT") {
             var value = e.target.value;
             var id = e.target.id.match(/\d+/)[0];

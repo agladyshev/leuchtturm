@@ -87,7 +87,6 @@ class NotebookApp extends HTMLElement {
 
     nextPageHandler(e) {
         if (e.target && e.target.id == "btn-next") {
-            console.log(paths.getNextPath());
             Router.navigate(paths.getNextPath());
             // Router.nextPage();
             // this.render();
@@ -96,7 +95,6 @@ class NotebookApp extends HTMLElement {
 
     previousPageHandler(e) {
         if (e.target && e.target.id == "btn-prev") {
-            console.log(paths.getPrevPath());
             Router.navigate(paths.getPrevPath());
             // Router.previousPage();
             // this.render();
