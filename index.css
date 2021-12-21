@@ -44,6 +44,10 @@ form {
     grid-template-columns: calc(var(--cell-size) * 4) calc(var(--cell-size) * 19);
 }
 
+.line {
+    position: relative;
+}
+
 .labels {
     position: relative;
     /* height: calc(var(--cell-size) * 36 / 30); */
@@ -96,4 +100,26 @@ input:focus {
     outline: none;
     caret-color: transparent;
     background-color: #f0f0e4;
+}
+
+.line button {
+    position: absolute;
+    /* background-color: #f0f0e4; */
+    background-color: transparent;
+    width: calc(var(--cell-size));
+    height: calc(var(--cell-size));
+    border: none;
+    left: calc(var(--cell-size) * 24.5);
+    /* top: calc(var(--cell-size) * 0.25); */
+    border-radius: 1em;
+    opacity: 0.7;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* display: none; */
+}
+
+button:active {
+    background-color: #f0f0e4;
+    opacity: 1;
 }

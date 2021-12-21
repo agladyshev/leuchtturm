@@ -36,6 +36,7 @@ class NotebookIndex extends HTMLElement {
             this.form.appendChild(generateIndexLine(i));
         }
         this.form.addEventListener("input", this.updateInputValue);
+        this.form.addEventListener("click", this.navigateToPage);
 
         this.shadowRoot.appendChild(stylesheet);
         this.shadowRoot.appendChild(header);
@@ -56,8 +57,13 @@ class NotebookIndex extends HTMLElement {
             textInput.className = "input-text";
             textInput.id = `input-text-${i}`
             textInput.setAttribute("aria-labelledby", "label-text");
+            var navArrow = document.createElement("button");
+            navArrow.className = "nav-arrow";
+            navArrow.innerText = "〉";
+            navArrow.id = `input-text-${i}`;
             line.appendChild(numInput);
             line.appendChild(textInput);
+            line.appendChild(navArrow);
             line.id = "line-" + i;
             return line;
         }
@@ -86,8 +92,8 @@ class NotebookIndex extends HTMLElement {
             if (e.target.type == "number" && (value == "" || e.data == "."))
                 e.target.value = value;
             if (e.target.type == "number" && !isNaN(value) && value > 100) {
-                value = 100;
-                e.target.value = 100;
+                value = "100";
+                e.target.value = "100";
             }
             var id = e.target.id.match(/\d+/)[0];
             if (e.target.type == "number") {
@@ -99,6 +105,16 @@ class NotebookIndex extends HTMLElement {
             }
         }
     }
+    navigateToPage(e) {
+        e.preventDefault();
+        if (e.target && e.target.className == "nav-arrow") {
+            var id = e.target.id.match(/\d+/)[0];
+            var pageNum = (e.target.form.index[id].page);
+            console.log(pageNum);
+            if (typeof pageNum == "string" && pageNum != "")
+                Router.navigate(`/page/${pageNum}`);
+        }
+    }
     render() {
         this.getValuesFromStorage();
         this.form.querySelectorAll("input").forEach(function setInputValue(input, i) {
@@ -108,7 +124,11 @@ class NotebookIndex extends HTMLElement {
             else if (input.type == "text")
                 input.value = this.index[i].topic;
         }.bind(this.form));
+        // this.renderButtons();
     }
+    // renderButtons() {
+    // 
+    // }
 }
 
 customElements.define("notebook-index", NotebookIndex);
