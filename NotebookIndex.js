@@ -46,6 +46,7 @@ class NotebookIndex extends HTMLElement {
             line.className = "line";
             var numInput = document.createElement('input');
             numInput.className = "input-num";
+            numInput.id = `input-num-${i}`
             numInput.type = "number";
             numInput.inputMode = "numeric";
             numInput.min = 1;
@@ -53,6 +54,7 @@ class NotebookIndex extends HTMLElement {
             numInput.setAttribute("aria-labelledby", "label-num");
             var textInput = document.createElement('input');
             textInput.className = "input-text";
+            textInput.id = `input-text-${i}`
             textInput.setAttribute("aria-labelledby", "label-text");
             line.appendChild(numInput);
             line.appendChild(textInput);
@@ -81,23 +83,22 @@ class NotebookIndex extends HTMLElement {
     updateInputValue(e) {
         if (e.target && e.target.tagName == "INPUT") {
             var value = e.target.value;
-            // console.log(value);
-            // console.log(this);
-            // console.log(e.target);
-            // console.log(e.data);
-            console.log(e.target.id);
             if (e.target.type == "number" && (value == "" || e.data == "."))
                 e.target.value = value;
             var id = e.target.id.match(/\d+/)[0];
-            // this.indexnfo[id] = value;
-            // Storage.updateItem("index, this.index);
+            if (e.target.type == "number") {
+                this.index[id].page = value;
+                Storage.updateItem("index", this.index);
+            } else if (e.target.type = "text") {
+                this.index[id].topic = value;
+                Storage.updateItem("index", this.index);
+            }
         }
     }
     render() {
         this.getValuesFromStorage();
         this.form.querySelectorAll("input").forEach(function setInputValue(input, i) {
             i = Math.floor(i / 2);
-            console.log(i);
             if (input.type == "number")
                 input.value = this.index[i].page;
             else if (input.type == "text")
