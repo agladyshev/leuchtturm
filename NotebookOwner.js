@@ -32,7 +32,7 @@ class NotebookOwner extends HTMLElement {
         <h6>thank you very much</h6>
         <h6>merci beaucoup</h6>
         `
-        this.form.addEventListener("input", this.updateCellValue);
+        this.form.addEventListener("input", this.updateInputValue);
         this.shadowRoot.appendChild(stylesheet);
         this.shadowRoot.appendChild(header);
         this.shadowRoot.appendChild(this.form);
@@ -48,7 +48,7 @@ class NotebookOwner extends HTMLElement {
         this.form.ownerInfo = owner;
     }
     // addListeners() {}
-    updateCellValue(e) {
+    updateInputValue(e) {
         if (e.target && e.target.tagName == "INPUT") {
             var value = e.target.value;
             var id = e.target.id.match(/\d+/)[0];
