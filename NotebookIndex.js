@@ -8,6 +8,16 @@ class NotebookIndex extends HTMLElement {
             mode: 'open'
         });
         this.generateShadowDOM();
+        this.form.enableButton = function enableButton(button, i) {
+            var pageNum = button.form.index[i].page;
+            if (typeof pageNum == "string" && pageNum != "") {
+                button.disabled = false;
+                button.style.display = "block";
+            } else {
+                button.disabled = true;
+                button.style.display = "none";
+            }
+        }
         // this.addListeners();
     }
     generateShadowDOM() {
@@ -60,7 +70,7 @@ class NotebookIndex extends HTMLElement {
             var navArrow = document.createElement("button");
             navArrow.className = "nav-arrow";
             navArrow.innerText = "〉";
-            navArrow.id = `input-text-${i}`;
+            navArrow.id = `button-arrow-${i}`;
             navArrow.disabled = true;
             navArrow.style.display = "none";
             line.appendChild(numInput);
@@ -101,6 +111,8 @@ class NotebookIndex extends HTMLElement {
             if (e.target.type == "number") {
                 this.index[id].page = value;
                 Storage.updateItem("index", this.index);
+                let btn = e.target.form.querySelector(`#button-arrow-${id}`);
+                this.enableButton(btn, id);
             } else if (e.target.type = "text") {
                 this.index[id].topic = value;
                 Storage.updateItem("index", this.index);
@@ -112,7 +124,6 @@ class NotebookIndex extends HTMLElement {
         if (e.target && e.target.className == "nav-arrow") {
             var id = e.target.id.match(/\d+/)[0];
             var pageNum = (e.target.form.index[id].page);
-            console.log(pageNum);
             if (typeof pageNum == "string" && pageNum != "")
                 Router.navigate(`/page/${pageNum}`);
         }
@@ -129,20 +140,9 @@ class NotebookIndex extends HTMLElement {
         this.renderButtons();
     }
     renderButtons() {
-        this.form.querySelectorAll("button.nav-arrow").forEach(this.enableButton);
+        this.form.querySelectorAll("button.nav-arrow").forEach(this.form.enableButton);
     }
-    enableButton(button, i) {
-        var pageNum = button.form.index[i].page;
-        console.log(pageNum);
-        if (typeof pageNum == "string" && pageNum != "") {
-            button.disabled = false;
-            console.log(button.classList);
-            button.style.display = "block";
-        } else {
-            button.disabled = true;
-            button.style.display = "none";
-        }
-    }
+
 }
 customElements.define("notebook-index", NotebookIndex);
 
