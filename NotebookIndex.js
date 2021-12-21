@@ -85,6 +85,10 @@ class NotebookIndex extends HTMLElement {
             var value = e.target.value;
             if (e.target.type == "number" && (value == "" || e.data == "."))
                 e.target.value = value;
+            if (e.target.type == "number" && !isNaN(value) && value > 100) {
+                value = 100;
+                e.target.value = 100;
+            }
             var id = e.target.id.match(/\d+/)[0];
             if (e.target.type == "number") {
                 this.index[id].page = value;
