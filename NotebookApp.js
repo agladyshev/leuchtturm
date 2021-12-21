@@ -65,6 +65,7 @@ class NotebookApp extends HTMLElement {
             }
         } else if (location.pathname.match(/^\/index\/?$/)) {
             this.createView("notebook-index");
+            this.view.render();
         } else if (location.pathname.match(/^\/owner\/?$/)) {
             this.createView("notebook-owner");
             this.view.render();

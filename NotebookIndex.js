@@ -46,7 +46,10 @@ class NotebookIndex extends HTMLElement {
             line.className = "line";
             var numInput = document.createElement('input');
             numInput.className = "input-num";
-            numInput.size = 3;
+            numInput.type = "number";
+            numInput.inputMode = "numeric";
+            numInput.min = 1;
+            numInput.max = 100;
             numInput.setAttribute("aria-labelledby", "label-num");
             var textInput = document.createElement('input');
             textInput.className = "input-text";
@@ -58,27 +61,47 @@ class NotebookIndex extends HTMLElement {
         }
     }
     getValuesFromStorage() {
-        var owner;
-        owner = Storage.getItem("owner");
-        if (!owner) {
-            owner = Storage.updateItem("owner", ["", "", "", "", "", ""]);
-            owner = Storage.getItem("owner");
+        var index;
+        index = Storage.getItem("index");
+        if (!index) {
+            let arr = [];
+            for (let i = 0; i < 29; i++) {
+                let obj = {
+                    page: "",
+                    topic: ""
+                };
+                arr.push(obj);
+            }
+            index = Storage.updateItem("index", arr);
+            index = Storage.getItem("index");
         }
-        this.form.ownerInfo = owner;
+        this.form.index = index;
     }
     // addListeners() {}
     updateInputValue(e) {
         if (e.target && e.target.tagName == "INPUT") {
             var value = e.target.value;
-            // var id = e.target.id.match(/\d+/)[0];
-            // this.ownerInfo[id] = value;
-            // Storage.updateItem("owner", this.ownerInfo);
+            // console.log(value);
+            // console.log(this);
+            // console.log(e.target);
+            // console.log(e.data);
+            console.log(e.target.id);
+            if (e.target.type == "number" && (value == "" || e.data == "."))
+                e.target.value = value;
+            var id = e.target.id.match(/\d+/)[0];
+            // this.indexnfo[id] = value;
+            // Storage.updateItem("index, this.index);
         }
     }
     render() {
         this.getValuesFromStorage();
-        this.form.querySelectorAll("input").forEach(function setInputValue(input, index) {
-            input.value = this.ownerInfo[index];
+        this.form.querySelectorAll("input").forEach(function setInputValue(input, i) {
+            i = Math.floor(i / 2);
+            console.log(i);
+            if (input.type == "number")
+                input.value = this.index[i].page;
+            else if (input.type == "text")
+                input.value = this.index[i].topic;
         }.bind(this.form));
     }
 }

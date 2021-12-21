@@ -68,11 +68,20 @@ form {
     left: calc(var(--cell-size) * 5);
 }
 
-.line .input-num {}
+/* .line .input-num {} */
 
-.line .input-text {}
+/* .line .input-text {} */
+
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+    opacity: 1;
+    -moz-appearance: textfield;
+    -webkit-appearance: none;
+    margin: 0;
+}
 
 input {
+    -moz-appearance: textfield;
     border-radius: 0;
     text-align: center;
     border-width: 0 0 1px 0;
