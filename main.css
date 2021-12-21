@@ -86,12 +86,13 @@ notebook-cover {
     height: calc(var(--cell-size) * 41);
     width: calc(var(--cell-size) * 28);
     /* grid-template-areas: "aside-left header aside-right" */
-        /* "aside-left grid aside-right" */
-        /* "aside-left footer aside-right"; */
-    margin: auto;   
+    /* "aside-left grid aside-right" */
+    /* "aside-left footer aside-right"; */
+    margin: auto;
 }
+
 notebook-owner {
-    background-color: cyan;
+    background-color: ivory;
     padding-bottom: 0;
     border-radius: 1rem 0 0 1rem;
     width: fit-content;
@@ -99,8 +100,11 @@ notebook-owner {
     box-sizing: border-box;
     height: calc(var(--cell-size) * 41);
     width: calc(var(--cell-size) * 28);
-    margin: auto;   
+    margin: auto;
+    display: grid;
+    grid-template-rows: 26fr 11fr 4fr;
 }
+
 notebook-index {
     background-color: seagreen;
     padding-bottom: 0;
@@ -110,5 +114,5 @@ notebook-index {
     box-sizing: border-box;
     height: calc(var(--cell-size) * 41);
     width: calc(var(--cell-size) * 28);
-    margin: auto;   
+    margin: auto;
 }
