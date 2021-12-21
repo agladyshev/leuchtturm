@@ -76,7 +76,9 @@ notebook-page {
 }
 
 notebook-cover {
-    background-color: cornflowerblue;
+    background: rgb(255, 231, 0);
+    background: linear-gradient(90deg, rgba(255, 231, 0, 1) 0%, rgba(255, 235, 39, 1) 52%);
+    /* background-size: 200px; */
     padding-bottom: 0;
     border-radius: 1rem 0 0 1rem;
     width: fit-content;

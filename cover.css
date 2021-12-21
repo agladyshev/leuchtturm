@@ -2,119 +2,19 @@
     --cell-size: calc(min(((100vh - 3rem) / 41), (100vw / 28)));
 }
 
-@font-face {
-    font-family: grotesk;
-    src: url(anderson_grotesk_light.otf);
-}
-
-header {
-    display: flex;
-}
-
-header .cell {
-    background: url('border-top.svg');
-    background-size: var(--cell-size) var(--cell-size);
-    opacity: 0.3;
-}
-
-aside {
-    width: var(--cell-size);
-}
-
-aside :last-child {
-    height: calc(2 * var(--cell-size));
-}
-
-.aside-left {
-    grid-area: aside-left;
-}
-
-.aside-left .cell {
-    background: url('border-left.svg');
-    background-size: var(--cell-size) auto;
-    opacity: 0.3;
-}
-
-.aside-left :first-child {
-    background: url('border-top-left.svg');
-    background-size: var(--cell-size) auto;
-}
-
-.aside-left :last-child {
-    background: url('border-bottom-left.svg');
-    background-size: var(--cell-size) calc(2 * var(--cell-size));
-}
-
-.aside-right {
-    grid-area: aside-right;
-}
-
-.aside-right .cell {
-    background: url('border-right.svg');
-    background-size: var(--cell-size) auto;
-    opacity: 0.3;
-}
-
-.aside-right :first-child {
-    background: url('border-top-right.svg');
-    background-size: var(--cell-size) auto;
-}
-
-.aside-right :last-child {
-    background: url('border-bottom-right.svg');
-    background-size: var(--cell-size) calc(2 * var(--cell-size));
-}
-
-article.grid {
-    grid-area: grid;
+div.svg-container {
+    box-sizing: border-box;
+    height: calc(var(--cell-size) * 41);
     position: relative;
-    display: grid;
-    grid-template-columns: repeat(26, 1fr);
-    grid-template-rows: repeat(38, 1fr);
+}
+
+svg {
     box-sizing: border-box;
-}
-
-.cell {
-    height: var(--cell-size);
-    width: var(--cell-size);
-}
-
-input.cell {
-    border-radius: 0;
-    text-align: center;
-    background: url('border.svg');
-    background-size: var(--cell-size);
-    border: none;
-    padding: 0;
-    background-color: inherit;
-    font-family: 'Klee One', cursive;
-    box-sizing: border-box;
-}
-
-input.cell:focus {
-    outline: none;
-    caret-color: transparent;
-    background-color: #f0f0e4;
-}
-
-footer {
-    position: relative;
-    grid-area: footer;
-    text-align: left;
-    height: calc(var(--cell-size) * 2);
-    display: flex;
-    font-size: 0.8em;
-    color: #b2b3ab;
-    box-sizing: border-box;
-}
-
-footer .cell {
-    background: url('border-bottom.svg');
-    background-size: var(--cell-size) auto;
-}
-
-footer page-counter {
     position: absolute;
-    left: 0.2rem;
-    top: 0.5rem;
+    width: calc(var(--cell-size) * 1.2);
+    height: calc(var(--cell-size) * 41);
+    right: calc(var(--cell-size) * 2);
+    box-shadow: 0px 1px 1px 0px black;
+    background-color: #555;
+    opacity: 0.9;
 }
